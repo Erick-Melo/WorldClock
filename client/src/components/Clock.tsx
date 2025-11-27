@@ -139,7 +139,6 @@ const timezoneToCountryMap: { [key: string]: string } = {
   'Australia/Adelaide': 'au',
   'Australia/Hobart': 'au',
   'Australia/Melbourne': 'au',
-  'Australia/Brisbane': 'au',
   'Pacific/Fiji': 'fj',
   'Pacific/Tahiti': 'pf',
   'Pacific/Noumea': 'nc',
@@ -261,7 +260,6 @@ const timezoneToCountryMap: { [key: string]: string } = {
   'America/Manaus': 'br',
   'America/Eirunepe': 'br',
   'America/Rio_Branco': 'br',
-  'America/Santiago': 'cl',
   'America/Punta_Arenas': 'cl',
   'America/Easter': 'cl',
   'Antarctica/Palmer': 'aq',
@@ -284,10 +282,6 @@ const getCountryCodeFromTimezone = (tz: string): string | null => {
     return timezoneToCountryMap[tz];
   }
 
-  // Se não houver correspondência exata, tenta encontrar uma correspondência parcial para regiões mais amplas.
-  // Esta é uma heurística e pode não ser perfeita para todos os casos.
-  // Ela tenta corresponder ao prefixo comum mais longo para lidar com casos como "America/Argentina/Cordoba"
-  // se apenas "America/Argentina/Buenos_Aires" ou "America/Argentina" estivesse mapeado.
   let bestMatch: string | null = null;
   let longestMatchLength = 0;
 
@@ -452,19 +446,19 @@ export default function Clock({ timezone, onRemove, isRemovable = false, sharedT
       </div>
 
       {/* Digital Time Display */}
-      <div className="text-[70px] font-bold text-blue-900 font-mono mb-2">
+      <div className="text-[70px] font-bold text-black font-mono mb-2">
         {timeString}
       </div>
 
       {/* Timezone Name */}
-      <div className="flex items-center text-sm text-gray-600">
-        <ClockIcon size={16} className="text-blue-600" />
+      <div className="flex items-center gap-2 text-sm text-gray-600">
+        <ClockIcon size={16} className="text-black" />
         <span className="font-semibold text-lg">{timezoneName}</span>
         {countryCode && (
           <img
             src={`https://flagcdn.com/w20/${countryCode}.png`}
             alt={`Flag of ${timezoneName}`}
-            className="ml-2 rounded shadow-sm"
+            className="rounded shadow-sm"
             width="30"
             height="25"
             loading="lazy" // Adiciona lazy loading para melhor performance
