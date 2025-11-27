@@ -7,7 +7,7 @@ import { Globe } from 'lucide-react';
 const MAX_CLOCKS = 4;
 
 export default function Home() {
-  const [clocks, setClocks] = useState<string[]>(['America/New_York', 'America/Recife', 'Europe/Lisbon', 'Asia/Dubai']);
+  const [clocks, setClocks] = useState<string[]>(['America/New_York', 'America/Recife', 'Europe/Lisbon', 'Europe/Berlin']);
   const [sharedTime, setSharedTime] = useState<Date>(new Date());
 
   const handleAddTimezone = (timezone: string) => {
@@ -32,9 +32,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-cover bg-no-repeat"
     style={{
-      
       backgroundImage: `url(/bg-lead.png)`,
-      //backgroundImage: `url(/meme1.jpg)`,
     }}>
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200 hidden">

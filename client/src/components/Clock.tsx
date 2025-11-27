@@ -295,6 +295,25 @@ const getCountryCodeFromTimezone = (tz: string): string | null => {
   return bestMatch;
 }
 
+const displayNameMap: { [key: string]: string } = {
+  'America/New_York': 'Miami',
+  'Europe/Lisbon': 'Lisboa',
+  'America/Recife': 'Recife',
+  'Europe/Berlin': 'Berlim'
+};
+
+const getDisplayName = (tz: string) => {
+  if (displayNameMap[tz]) {
+    return displayNameMap[tz];
+  }
+  return tz.split('/').pop()?.replace(/_/g, ' ') || tz;
+};
+
+const getContinent = (tz: string) => {
+  // Trata casos como America/Argentina/Buenos_Aires
+  return tz.split('/')[0].replace(/_/g, ' ');
+}
+
 export default function Clock({ timezone, onRemove, isRemovable = false, sharedTime }: ClockProps) {
   const [time, setTime] = useState<Date>(new Date());
 
@@ -372,6 +391,8 @@ export default function Clock({ timezone, onRemove, isRemovable = false, sharedT
   const timeString = getTimeInTimezone();
   const timezoneName = getTimezoneName();
   const countryCode = getCountryCodeFromTimezone(timezone);
+  const displayName = getDisplayName(timezone);
+  const continentName = getContinent(timezone);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 p-6 py-10 bg-[#ffffff4d] rounded-2xl shadow-lg border border-blue-100 hover:shadow-xl transition-shadow duration-300">
@@ -468,7 +489,7 @@ export default function Clock({ timezone, onRemove, isRemovable = false, sharedT
 
       {/* Timezone Label */}
       <div className="text-lg font-bold text-gray-500 bg-blue-100 px-3 py-1 rounded-full">
-        {timezone}
+        {continentName} / {displayName}
       </div>
 
       {/* Remove Button */}
