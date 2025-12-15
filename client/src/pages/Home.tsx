@@ -1,8 +1,45 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { APP_TITLE } from "@/const";
 import Clock from "@/components/Clock";
 import TimezoneSelector from "@/components/TimezoneSelector";
 import { Globe } from "lucide-react";
+
+// Componente para o floco de neve individual
+const Snowflake = ({ style }: { style: React.CSSProperties }) => {
+  const snowFlakeImage = `/snowflake${Math.floor(Math.random() * 4) + 1}.svg`;
+  return (
+    <div
+      className="absolute top-[-10px] w-10 h-10 bg-contain bg-no-repeat animate-fall"
+      style={{
+        ...style,
+        backgroundImage: `url(${snowFlakeImage})`,
+        willChange: 'transform, opacity',
+        transform: 'translateZ(0)',
+      }}
+    />
+  );
+};
+
+// Componente para gerar a neve
+const Snowfall = ({ count = 50 }) => {
+  const snowflakes = useMemo(() =>
+    Array.from({ length: count }).map((_, i) => {
+      const style = {
+        left: `${Math.random() * 100}vw`,
+        animationDuration: `${Math.random() * 3 + 8}s`,
+        animationDelay: `${Math.random() * 15}s`,
+        opacity: Math.random() * 0.5 + 0.3,
+        transform: `scale(${Math.random() * 0.2 + 0.9})`,
+      };
+      return <Snowflake key={i} style={style} />;
+    }), [count]);
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-40 overflow-hidden" style={{ willChange: 'contents' }}>
+      {snowflakes}
+    </div>
+  );
+};
 
 const MAX_CLOCKS = 4;
 
@@ -38,9 +75,10 @@ export default function Home() {
     <div
       className="min-h-screen bg-cover bg-no-repeat"
       style={{
-        backgroundImage: `url(/bg-lead.png)`,
+        backgroundImage: `url(/bg-lead-natalino.png)`,
       }}
     >
+      <Snowfall />
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200 hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

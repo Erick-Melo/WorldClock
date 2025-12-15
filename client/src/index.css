@@ -133,6 +133,29 @@
   }
 }
 
+@layer utilities {
+  @keyframes fall {
+    0% {
+      transform: translateY(-10vh) translateX(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh) translateX(5vw) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-fall {
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+
 @layer components {
   /**
    * Custom container utility that centers content and adds responsive padding.
