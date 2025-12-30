@@ -75,10 +75,10 @@ export default function Home() {
     <div
       className="min-h-screen bg-cover bg-no-repeat"
       style={{
-        backgroundImage: `url(/bg-lead-natalino.png)`,
+        backgroundImage: `url(/bg-lead.png)`,
       }}
     >
-      <Snowfall />
+      {/* <Snowfall /> */}
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200 hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
